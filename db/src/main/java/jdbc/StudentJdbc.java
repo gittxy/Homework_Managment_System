@@ -18,7 +18,7 @@ public class StudentJdbc {
         String drivername = "com.mysql.cj.jdbc.Driver";
         Class.forName(drivername);//可以省略
         boolean isSuccess = true;
-        try (Connection connection = DriverManager.getConnection(url, "root", "mysqlroot")) {
+        try (Connection connection = DatabasePool.getHikariDataSource().getConnection()) {
             //Preparestatement （增、删、改、查）
             String sqlString = "insert into student(id,name,create_time,update_time) values (?,?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sqlString);
@@ -46,7 +46,7 @@ public class StudentJdbc {
 
         List<Student>list=new ArrayList<>();
         Class.forName(drivername);//可以省略
-        try (Connection connection = DriverManager.getConnection(url, "root", "mysqlroot")) {
+        try (Connection connection = DatabasePool.getHikariDataSource().getConnection()) {
             //通过连接获取statement
             try (Statement statement = connection.createStatement()) {
                 //statement （增、删、改、查）

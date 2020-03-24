@@ -20,7 +20,7 @@ public class HomeworkJdbc {
         String drivername = "com.mysql.cj.jdbc.Driver";
         Class.forName(drivername);//可以省略
         boolean isSuccess = true;
-        try (Connection connection = DriverManager.getConnection(url, "root", "mysqlroot")) {
+        try (Connection connection = DatabasePool.getHikariDataSource().getConnection()) {
             //Preparestatement （增、删、改、查）
             String sqlString = "insert into homework(id,title,content,create_time) values (?,?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sqlString);
@@ -49,7 +49,7 @@ public class HomeworkJdbc {
 
         List<StudentHomework>list=new ArrayList<>();
         Class.forName(drivername);//可以省略
-        try (Connection connection = DriverManager.getConnection(url, "root", "mysqlroot")) {
+        try (Connection connection = DatabasePool.getHikariDataSource().getConnection()) {
             //通过连接获取statement
             try (Statement statement = connection.createStatement()) {
                 //statement （增、删、改、查）
@@ -84,7 +84,7 @@ public class HomeworkJdbc {
 
         List<Homework>list=new ArrayList<>();
         Class.forName(drivername);//可以省略
-        try (Connection connection = DriverManager.getConnection(url, "root", "mysqlroot")) {
+        try (Connection connection = DatabasePool.getHikariDataSource().getConnection()) {
             //通过连接获取statement
             try (Statement statement = connection.createStatement()) {
                 //statement （增、删、改、查）
@@ -118,7 +118,7 @@ public class HomeworkJdbc {
 
         List<StudentHomework>list=new ArrayList<>();
         Class.forName(drivername);//可以省略
-        try (Connection connection = DriverManager.getConnection(url, "root", "mysqlroot")) {
+        try (Connection connection = DatabasePool.getHikariDataSource().getConnection()) {
             //通过连接获取statement
             try (Statement statement = connection.createStatement()) {
                 //statement （增、删、改、查）
@@ -154,7 +154,7 @@ public class HomeworkJdbc {
 
         List<StudentHomework>list=new ArrayList<>();
         Class.forName(drivername);//可以省略
-        try (Connection connection = DriverManager.getConnection(url, "root", "mysqlroot")) {
+        try (Connection connection = DatabasePool.getHikariDataSource().getConnection()) {
             //通过连接获取statement
             try (Statement statement = connection.createStatement()) {
                 //statement （增、删、改、查）
@@ -212,7 +212,7 @@ public class HomeworkJdbc {
         if(!homeworkExist){
             return  "输入的作业不存在，请检查后再输入";
         }
-        try (Connection connection = DriverManager.getConnection(url, "root", "mysqlroot")) {
+        try (Connection connection = DatabasePool.getHikariDataSource().getConnection()) {
             //通过连接获取statement
             String sqlString = "insert into student_homework(id,student_id,homework_id,homework_title,homework_content,create_time,update_time)values(?,?,?,?,?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sqlString);
